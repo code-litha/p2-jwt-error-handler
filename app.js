@@ -1,22 +1,14 @@
-require("dotenv").config();
+require("dotenv").config(); // untuk bisa baca file .env kita
+
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
-const cors = require("cors");
 const router = require("./router");
-const errorHandler = require("./middleware/errorHandler");
+const errorHandler = require("./middlewares/errorHandler");
 
-console.log(process.env, "<<<< env");
-app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const myLogger = function (req, res, next) {
-  console.log("LOGGED");
-  next();
-};
-
-app.use(myLogger);
 app.use(router);
 
 app.use(errorHandler);
